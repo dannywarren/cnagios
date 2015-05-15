@@ -1,0 +1,21 @@
+
+# add a site name to the upper left hand corner...
+default site_name = Localhost
+
+# display OKAY services...
+default level = OKAY
+
+# sort by age...
+default sort_order = by_age
+
+# don't display hosts/services/plugin output that 
+# matches our compute node names... eg g12n01...
+#default text !~ /^g\d+n\d+/
+
+# only display OKAY services that have changed 
+# states within the last eight hours...
+#default okay_age = 8h
+
+# the "F1" key sets a /Ping/ filter... 
+#f1 text =~ /Ping/
+

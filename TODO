@@ -1,0 +1,9 @@
+
+custom colorization 
+
+there is a report that cnagios does not work with Solaris10.
+appearently the second SIGALRM signal is unhandled.  i have no
+reasonable way to fix this problem. 
+
+suggestions welcome
+

@@ -1,0 +1,183 @@
+dnl
+dnl $Id: configure.in,v 1.22 2010/10/16 02:28:55 rader Exp $
+dnl
+
+#----------------------------------------
+# boiler-plate...
+
+AC_INIT(Makefile.in)
+AC_CONFIG_AUX_DIR(config)
+AC_CANONICAL_SYSTEM
+AC_PREREQ(2.12)
+CNAGIOS_VERSION=`cat VERSION`
+AC_SUBST(CNAGIOS_VERSION)
+nagios_default_prefix=/usr/local/nagios
+AC_PATH_PROG(CC, cc, NOT_FOUND)
+if test "$CC" = "NOT_FOUND"; then
+  AC_MSG_ERROR([can not continue: cc not found])
+fi
+
+#----------------------------------------
+# embeded perl...
+
+AC_PATH_PROG(PERL, perl, NOT_FOUND)
+if test "$PERL" = "NOT_FOUND"; then
+  AC_MSG_ERROR([can not continue: perl not found])
+fi
+
+PERL_CFLAGS=`perl -MExtUtils::Embed -e ccopts`
+if test "$PERL_CFLAGS" = "NOT_FOUND"; then
+  AC_MSG_ERROR([can not determine perl cc flags])
+fi
+AC_SUBST(PERL_CFLAGS)
+
+PERL_LIBS=`perl -MConfig -e 'print $Config{libs}'`
+if test "$PERL_LIBS" = "NOT_FOUND"; then
+  AC_MSG_ERROR([can not determine perl libs])
+fi
+AC_SUBST(PERL_LIBS)
+
+PERL_LDFLAGS=`perl -MExtUtils::Embed -e ldopts`
+if test "$PERL_LDFLAGS" = "NOT_FOUND"; then
+  AC_MSG_ERROR([can not determine perl ld flags])
+fi
+AC_SUBST(PERL_LDFLAGS)
+
+#----------------------------------------
+# nagios etc...
+
+if test -d "/etc/nagios"; then
+  NAGIOS_ETC_DIR=/etc/nagios
+fi
+if test -d "$nagios_default_prefix/etc"; then
+  NAGIOS_ETC_DIR=$nagios_default_prefix/etc
+fi
+if test -d "$prefix/etc"; then
+  NAGIOS_ETC_DIR=$prefix/etc
+fi
+AC_ARG_WITH(etc-dir,[
+Cnagios Options:
+  --with-etc-dir=DIR      use cnagios.pl, cnagiosrc and cnagios.help in DIR], NAGIOS_ETC_DIR=$withval)
+echo "nagios etc dir... $NAGIOS_ETC_DIR"
+if test "X $NAGIOS_ETC_DIR" = "X "; then
+  echo
+  echo "FATAL ERROR: Nagios etc directory not found"
+  echo "Try ./configure --with-etc-dir=/path/to/nagios/etc"
+  echo
+  exit
+fi
+AC_SUBST(NAGIOS_ETC_DIR)
+
+#----------------------------------------
+# nagios var...
+
+if test -d "/var/nagios"; then
+  NAGIOS_VAR_DIR=/var/nagios
+fi
+if test -d "/var/log/nagios"; then
+  NAGIOS_VAR_DIR=/var/log/nagios
+fi
+if test -d "$nagios_default_prefix/var"; then
+  NAGIOS_VAR_DIR=$nagios_default_prefix/var
+fi
+if test -d "$prefix/var"; then
+  NAGIOS_VAR_DIR=$prefix/var
+fi
+AC_ARG_WITH(var-dir,[  --with-var-dir=DIR      use status.dat status file in DIR], NAGIOS_VAR_DIR=$withval)
+echo "nagios var dir... $NAGIOS_VAR_DIR"
+if test "X $NAGIOS_VAR_DIR" = "X "; then
+  echo
+  echo "FATAL ERROR: Nagios var directory not found"
+  echo "Try ./configure --with-var-dir=/path/to/nagios/var"
+  echo
+  exit
+fi
+AC_SUBST(NAGIOS_VAR_DIR)
+
+#----------------------------------------
+# nagios status data file and it's format...
+
+NAGIOS_STATUS_LOG="$NAGIOS_VAR_DIR/status.log"
+NAGIOS_STATUS_DAT="$NAGIOS_VAR_DIR/status.dat"
+
+if test -f "$NAGIOS_STATUS_LOG" ; then
+  NAGIOS_STATUS_DATA_FILE=$NAGIOS_STATUS_LOG
+fi
+
+if test -f "$NAGIOS_STATUS_DAT" ; then
+  NAGIOS_STATUS_DATA_FILE=$NAGIOS_STATUS_DAT
+fi
+
+if test -f "$NAGIOS_STATUS_LOG" && test -f "$NAGIOS_STATUS_DAT" ; then
+  echo
+  echo "WARNING: detected status.log and status.dat in $NAGIOS_VAR_DIR"
+  echo "WARNING: using $NAGIOS_STATUS_DAT"
+  echo
+fi
+
+AC_ARG_WITH(status-file,[  --with-status-file=FILE expect to find status file at FILE], DATA_FILE=$withval)
+if test "X $DATA_FILE" != "X "; then
+  NAGIOS_STATUS_DATA_FILE=$DATA_FILE
+fi
+
+if test "X $NAGIOS_STATUS_DATA_FILE" = "X "; then
+  echo
+  echo "FATAL ERROR: failed to find status.dat or status.log in $NAGIOS_VAR_DIR"
+  echo "It appears you do not have a working Nagios installation."
+  echo
+  exit
+fi
+
+AC_ARG_WITH(nagios-data,[  --with-nagios-data=VER  expect status file to be in VER data format], DATA_VER=$withval)
+if test "X $DATA_VER" != "X "; then
+  NAGIOS_STATUS_DATA_VERSION=$DATA_VER
+else
+  # autodetect...
+  NAGIOS_STATUS_DATA_VERSION=`head -20 $NAGIOS_STATUS_DATA_FILE | perl -ane '
+    BEGIN { $v='UNKNOWN'; }
+    if ( $_ =~ /Nagios 1.*? Status File/ ) { $v="1"; last; }
+    if ( $_ =~ /version=(\d+)/ ) { $v="$1"; last; }
+    END { print $v; }
+  '`
+fi
+
+if test "$NAGIOS_STATUS_DATA_VERSION" = "UNKNOWN" ; then
+  echo
+  echo "FATAL ERROR: failed to detect data version in $NAGIOS_STATUS_DATA_FILE"
+  echo "It appears you do not have a working Nagios installation."
+  echo
+  exit
+fi
+
+if test "$NAGIOS_STATUS_DATA_VERSION" -gt 3 ; then
+  echo
+  echo "FATAL ERROR: unsupported data version ($NAGIOS_STATUS_DATA_VERSION) in $NAGIOS_STATUS_DATA_VERSION"
+  echo "Currently supported versions are 1, 2 and 3."
+  echo
+  exit
+fi
+
+echo "nagios status file... $NAGIOS_STATUS_DATA_FILE"
+echo "nagios data version... $NAGIOS_STATUS_DATA_VERSION"
+AC_SUBST(NAGIOS_STATUS_DATA_FILE)
+AC_SUBST(NAGIOS_STATUS_DATA_VERSION)
+
+#----------------------------------------
+# defines...
+
+if test $build_vendor = "sun"; then
+  DEFINES="-DSUN"
+fi
+AC_SUBST(DEFINES)
+
+#----------------------------------------
+# autoconf subs...
+
+AC_OUTPUT( \
+  Makefile \
+  cnagios.h
+)
+
+echo "./configure is done"
+echo "next do \"make\""
+

@@ -1,0 +1,321 @@
+ Mon Dec 23rd 2013 - Bug fix from Colin Stolley.
+                     Writing past end of a buffer.
+
+ Fri May 24th 2013 - Steve Rader died.  We miss him.
+                     http://www.news.wisc.edu/21829
+
+ Thu Mar 28th 2013 - released 0.30
+
+ Thu Mar 28th 2013 - print an error msg (instead of crashing) when
+                     the max number of services or hosts is reached
+
+ Thu Mar 28th 2013 - increased the max number of services or hosts to .25M
+
+ Thu Mar 28th 2013 - fixed parsing of status data for 3.5.0: status info is
+                     now extracted by intelligently searching the status.dat 
+                     file, instead of blindly fast forwarding.
+
+ Wed Jul  6th 2011 - fixed a potental bug in displaying the
+                     "last updated" info by changing last_update_int 
+                     from type int to type time_t
+
+ Mon Mar 28th 2011 - fixed parsing of status data for 3.2.3 
+
+
+ Tue Mar 22nd 2011 - released 0.29
+
+ Tue Mar 22nd 2011 - stuff from Simon Kuhnle via OpenBSD... 
+                     correctly applied fix to display oldest item 
+                     when sorting by age and fixes for long pointer 
+                     64 bit crashes and various warnings
+ 
+
+ Tue Mar  7th 2011 - released 0.28
+
+ Tue Mar  7th 2011 - stuff from Simon Kuhnle via OpenBSD... 
+                     fix to display oldest item when sorting by
+                     age and fixes for long pointer 64 bit crashes 
+                     and various warnings
+
+
+ Sat Oct 16th 2010 - released 0.27
+
+ Sat Oct 16th 2010 - fix to correctly parse what appears to be a new
+                     v3 format
+
+ Fri Oct 15th 2010 - debug mode (-d) now prints verbose details about
+                     parsing the status file to stderr
+
+
+ Tue Apr 14th 2008 - released 0.26
+
+ Tue Apr 15th 2008 - converted man page from mdoc to man format
+
+ Mon Apr 14th 2008 - fixes for Solaris
+
+ Mon Apr 14th 2008 - fixes to make --prefix work
+
+
+ Sat Apr 12th 2008 - released 0.25
+
+ Sat Apr 12th 2008 - added --with-status-file=FILE so folks can 
+                     build cnagios on systems that don't have Nagios
+                     installed (e.g. on BSD package build systems)
+
+  
+ Thu Apr 10th 2008 - released 0.24
+
+ Thu Apr 10th 2008 - updated autoconf scripts so cnagios will build
+                     with RHEL/SL/CentOS (and others?) on x86_64
+ 
+ Thu Apr 10th 2008 - fixed ./configure bug where it would hang
+                     when there is a NAGIOS_VAR_DIR but no
+                     NAGIOS_STATUS_DATA_FILE 
+
+ Thu Apr 10th 2008 - fixes for parsing v3 states correctly
+
+
+ Mon Mar 31st 2008 - released 0.23
+
+ Mon Mar 31st 2008 - fixes for v2 PENDING host and service states
+
+ Mon Mar 31st 2008 - cnagios.pl now shortens check_ping v2 output
+
+ Sun Mar 30th 2008 - added support for Nagios version 3
+
+ Sat Mar 29th 2008 - added automatic detection of status data versions
+                     to ./configure 
+
+
+ Sun Feb 10th 2008 - released 0.22
+
+ Sun Feb 10th 2008 - removed SITE_NAME from ./configure and added
+                     "default site_name = <string>" to cnagiosrc
+                     for the Debian folks
+
+ Wed Feb  6th 2008 - added the man page--contributed by Ian Darwin
+
+ 
+ Tue Feb  5th 2008 - released 0.21
+
+ Tue Feb  5th 2008 - now licensed under the ISC OSS license
+
+ Tue Feb  5th 2008 - more stuff for the OpenBSD crowd
+
+
+ Thu Nov  1st 2007 - released 0.20 
+
+ Wed Oct 31st 2007 - docmented the behavior of &host_plugin_hook()
+                     and &host_plugin_hook() at the top of cnagios.pl
+ 
+ Wed Oct 31st 2007 - updated cnagios.pl
+
+ Wed Oct 31st 2007 - fixes for OpenBSD and RHEL5
+
+
+ Fri Feb  2nd 2007 - released 0.19
+
+ Fri Feb  2nd 2007 - added --with-nagios-data=VER
+
+ Fri Feb  2nd 2007 - fixed strcpy() to strncpy() conversion bugs
+
+ 
+ Fri Feb  2nd 2007 - released 0.18
+
+ Fri Feb  2nd 2007 - fixes for compiling under FC6 and SeSE10
+                     (gcc 3.2.3 or better?)
+
+
+ Wed Jan 24th 2007 - released 0.17
+
+ Wed Jan 30th 2007 - fixed some ./configure bitch msgs
+
+ Wed Jan 30th 2007 - fix for compiling under RHEL4 etc
+
+
+ Wed Jan 24th 2007 - released 0.16
+
+ Wed Jan 24th 2007 - fix to use the real function keys
+
+ Wed Jan 24th 2007 - fixed --with-etc-dir
+
+ Wed Jan 24th 2007 - lots of strcpy() to strncpy() changes 
+               
+
+ Tue Nov 28th 2006 - released 0.15
+
+ Tue Nov 28th 2006 - changed ./configure so "\n" at the terse site name 
+                     prompt doesn't set the site name 
+
+ Tue Nov 28th 2006 - added ./configure --with-etc-dir=/path/to/nagios/etc
+
+ Tue Nov 28th 2006 - made ./configure --with-var-dir=/path/to/nagios/var
+                     work better
+
+ Mon Nov 27th 2006 - changed outward facing strcpy()s to strncpy()s
+
+ Mon Nov 27th 2006 - changes for OpenBSD 4.0
+
+
+ Mon Nov 27th 2006 - released 0.14
+
+ Mon Nov 27th 2006 - added ./configure support for Nagios v2
+
+ Sat Nov 25th 2006 - added support for Nagios v2 status file (status.dat)
+
+ Sat Nov 25th 2006 - fixes for clean compiles with GCC 3.2
+
+
+ Mon Oct 31st 2005 - released 0.13
+
+ Mon Oct 31st 2005 - fixed bug to make cnagiosrc and cli age filter
+                     settings work
+
+
+ Sun Oct 30th 2005 - released 0.12
+
+ Sun Oct 30th 2005 - changes so highlighting/cuting-and-pasting looks pretty
+
+ Sun Oct 30th 2005 - "make install" installs 
+                     /usr/local/nagios/etc/cnagiosrc
+ 
+ Sat Oct 29th 2005 - fixes to allow for "default level",
+                     "default sort_order", "default age" and
+                     "default okay_age" in cnagiosrc files.
+
+ Sat Oct 29th 2005 - fix to allow comments in cnagiosrc files
+
+ Sat Oct 29th 2005 - fix so \n at any filter prompt clears the 
+                     individual filter
+
+ Sat Oct 29th 2005 - added global config file: $prefix/etc/cnagiosrc
+
+ Sat Oct 29th 2005 - fix to allow tabs in ~/.cnagiosrc
+
+ Sat Oct 29th 2005 - added 1-9 "function keys" via ~/.cnagios entries 
+                     like "f1 text =~ /Ping/"
+
+ Fri Oct 28th 2005 - fixed bug where txt =~ regex in ~/.cnagios and 
+                     -g regex (etc) didn't filter right
+
+
+ Mon Oct 25th 2005 - released 0.11
+
+ Tue Oct 25th 2005 - fix so PENDING objects have zero second 
+                     duration--so they get displayed at the top 
+                     of sort-by-age output.  (They certainly 
+                     having't been pending since Jan 1 1970!)
+
+ Tue Oct 25th 2005 - re-worked the header format to include Sort:
+                     and separate age/text filters
+
+ Tue Oct 25th 2005 - fix so you can't filter by txt =~ && txt !~ 
+                     (and ditto for age vs ok age)
+
+
+ Mon Oct 24th 2005 - released 0.10
+
+ Mon Oct 24th 2005 - fix so PENDING objects show up at *all* levels
+
+ Sun Oct 23rd 2005 - added support for ~/.cnagios files with 
+                     "txt =~ regexp" and/or "txt !~ regexp" entries
+
+ Sun Oct 23rd 2005 - fix so PENDING host checks don't cause core dumps
+
+ Sun Oct 23rd 2005 - color is on by default
+
+ Thu May  6th 2005 - the perl service_plugin_hook() regexps are now also
+                     applied to the host name and service name (as well
+                     as the plugin output)
+
+ Wed May  4th 2005 - fix for reporting correct number of down hosts
+
+ Wed May  4th 2005 - fix for embedded perl with perl v5.8.x
+
+ Tue Dec 28th 2004 - fixes for color mode when terminal's default
+                     background color isn't black
+
+ Tue Dec 28th 2004 - fixes for PENDING objects
+
+
+ Thu Dec  2nd 2004 - released 0.9
+
+ Thu Dec  2nd 2004 - added multiple filters... for example 
+                     txt=~anise && txt!~AFS or txt!~^g\dn && ok_age<36h
+
+ Wed Dec  1st 2004 - added filtering of combined (separated by spaces)
+                     name/service/plugin output 
+
+ Wed Dec  1st 2004 - added regexs for cnagios-internal plugin output
+
+ Wed Dec  1st 2004 - fixed header centering w/ filter set bug
+
+
+ Mon Nov 22st 2004 - released 0.8
+
+ Sun Nov 21st 2005 - converted filter and negative filter to perl
+                     regular expressions 
+
+ Wed Nov 17th 2004 - fixed bug where toggles between HOST modes 
+                     and SERVICE modes was beep()ing
+
+ Wed Nov 17th 2004 - fixed bug with reporting number of UP/DOWN
+                     hosts
+
+
+ Fri Nov 12th 2004 - released 0.7
+
+ Fri Nov 12th 2004 - added filter by "okay age"
+ 
+ Wed Nov 11th 2004 - added support for UNKNOWN objects
+
+ Wed Nov 11th 2004 - fixed Makefile so upgrades don't overwrite 
+                     cnagios.pl
+
+
+ Wed Nov 10th 2004 - released 0.6
+
+ Wed Nov 10th 2004 - wrote the README file
+
+ Wed Nov 10th 2004 - added automagic discovery of perl cc/ld flags
+
+ Wed Nov 10th 2004 - added ./configure
+
+ Wed Nov 10th 2004 - added negative filter (grep -v)
+
+ Wed Nov 10th 2004 - tweaked perl hooks so that perl compile/eval
+                     errors are readable
+
+ Tue Nov  9th 2004 - reworked the embedded perl hooks
+
+
+ Tue Nov  9th 2004 - released 0.5
+
+ Mon Nov  8th 2004 - added filter by "age"
+
+
+ Mon Nov  8th 2004 - released 0.4
+
+ Mon Nov  8th 2004 - add cli for (almost) all commands
+
+ Sun Nov  7th 2004 - added sort-by-age (vs sort-by-name)
+
+ Sat Nov  6th 2004 - added row/column pad and header pad
+
+
+ Sat Nov  6th 2004 - released 0.3
+
+ Sat Nov  6th 2004 - added color
+
+
+ Sat Nov  6th 2004 - released 0.2
+
+ Fri Nov  5th 2004 - added up|down modes
+
+
+ Thu Nov  4th 2004 - released 0.1
+
+ Thu Nov  4th 2004 - added embedded perl hooks
+
+ Wed Nov  3rd 2004 - first barely functional version 
+

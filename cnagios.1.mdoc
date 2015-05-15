@@ -1,0 +1,70 @@
+.\"
+.\" $Id: cnagios.1,v 1.1 2008/02/06 15:13:14 rader Exp $
+.\"
+.Dd February 5, 2008
+.Dt CNAGIOS 1
+.Os
+.Sh NAME
+.Nm cnagios
+.Nd colorized console display for viewing Nagios status information
+.Sh SYNOPSIS
+.Nm
+.Op Fl bdhV
+.Op Fl A Ar age
+.Op Fl a Ar age
+.Op Fl g Ar /perl_regex/
+.Op Fl i Ar interval
+.Op Fl l Ar u|d|o|w|c
+.Op Fl m Ar h|s
+.Op Fl P Ar rows
+.Op Fl p Ar rows
+.Op Fl s Ar n|a
+.Op Fl v Ar /perl_regex/
+.Sh DESCRIPTION
+.Nm
+is a full-screen terminal interface for viewing Nagios
+HOST and SERVICE objects, and the durations of their current states.
+.Pp
+It's quite fast, much faster than the Nagios web interface,
+because it's written in C using the curses library. 
+And it's very flexible, because it uses hooks directly
+into the Perl C library to shorten host, service and plugin output,
+and also filter the displayed HOSTs or SERVICEs.
+.Pp
+The following summarizes the options:
+.nf
+-A <age>         filter UP/OKAY objects by age less than <age>
+-a <age>         filter objects by age less than <age>
+-b               display in black and white
+-d               print debug info to stderr
+-g /perl_regex/  filter host/service/plugin-output with /perl_regex/
+-h               print (this) usage info
+-i <integer>     set polling interval to <integer> seconds (default is 90)
+-l <u|d|o|w|c>   display objects with UP/DOWN/OK/WARNING/CRITICAL status
+-m <h|s>         display HOST objects or SERVICE objects
+-P <integer>     set header padding to <integer> (default is 2)
+-p <integer>     set row/column padding to <integer> (default is 1)
+-s <n|a>         sort objects by-name or by-age
+-V               print version and exit
+-v /perl_regex/  negative filter host/service/plugin-output with /perl_regex/
+.fi
+.Sh FILES
+.nf
+<inst_dir>/etc/cnagios.pl  Perl hooks for shortening/altering output
+<inst_dir>/etc/cnagiosrc   System-wide startup file
+$HOME/.cnagiosrc           User defined startup file
+.Sh ENVIRONMENT
+TERM and TERMINFO will be used to control the display, as per
+.Xr ncurses 3.
+.Sh TRIVIA
+.Nm
+has a very venerable history.  It's a clone of the "Internet Rover" 
+display that was used to monitor NSFNET (the progenitor to the Internet) 
+as early as 1987.
+.Sh SEE ALSO
+Nagios
+.Sh AUTHORS
+.Nm
+was written by 
+Steve Rader at the University of Wisconsin Physics Department.
+It is not part of the official Nagios distribution.

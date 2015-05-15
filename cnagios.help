@@ -1,0 +1,23 @@
+  
+  Cnagios Commands
+  ----------------
+    u       display all host objects
+    d       display UNKNOWN and DOWN hosts
+    o       display all service objects
+    w       display UNKNOWN, PENDING, WARNING and CRITICAL services
+    c       display CRITICAL services
+    t       toggle between sort-by-age and sort-by-name (also s)
+    space   intelligent scroll 
+    >       go to next page (also ^f)
+    <       go to previous page (also ^b)
+    0       go to first page
+    G       go to last page
+    =       set a text filter (also g) (use \n to clear)
+    !       set a negative text filter (also v) (use \n to clear)
+    a       set an age filter (use \n to clear)
+    A       set an age filter for UP/OK objects only (use \n to clear)
+    x       clear all filters
+    r       reread the status.log and refresh display (also ^l)
+    h       display (this) help screen (also ?)
+    q       quit (also ^d)
+

@@ -1,0 +1,66 @@
+.TH CNAGIOS 1 "February 5, 2008" ""
+.SH NAME
+\fBcnagios\fR
+\- colorized console display for viewing Nagios status information
+.SH SYNOPSIS
+.br
+\fBcnagios\fR
+[\fB\-bdhV\fR]
+[\fB\-A\fR \fIage]\fR
+[\fB\-a\fR \fIage]\fR
+[\fB\-g\fR \fI/perl_regex/]\fR
+[\fB\-i\fR \fIinterval]\fR
+[\fB\-l\fR \fIu|d|o|w|c]\fR
+[\fB\-m\fR \fIh|s]\fR
+[\fB\-P\fR \fIrows]\fR
+[\fB\-p\fR \fIrows]\fR
+[\fB\-s\fR \fIn|a]\fR
+[\fB\-v\fR \fI/perl_regex/]\fR
+.SH DESCRIPTION
+\fBcnagios\fR
+is a full-screen terminal interface for viewing Nagios
+HOST and SERVICE objects, and the durations of their current states.
+.LP
+It's quite fast, much faster than the Nagios web interface,
+because it's written in C using the curses library. 
+And it's very flexible, because it uses hooks directly
+into the Perl C library to shorten host, service and plugin output,
+and also filter the displayed HOSTs or SERVICEs.
+.LP
+The following summarizes the options:
+.nf
+-A <age>         filter UP/OKAY objects by age less than <age>
+-a <age>         filter objects by age less than <age>
+-b               display in black and white
+-d               print debug info to stderr
+-g /perl_regex/  filter host/service/plugin-output with /perl_regex/
+-h               print (this) usage info
+-i <integer>     set polling interval to <integer> seconds (default is 90)
+-l <u|d|o|w|c>   display objects with UP/DOWN/OK/WARNING/CRITICAL status
+-m <h|s>         display HOST objects or SERVICE objects
+-P <integer>     set header padding to <integer> (default is 2)
+-p <integer>     set row/column padding to <integer> (default is 1)
+-s <n|a>         sort objects by-name or by-age
+-V               print version and exit
+-v /perl_regex/  negative filter host/service/plugin-output with /perl_regex/
+fi
+.SH FILES
+.nf
+<inst_dir>/etc/cnagios.pl  Perl hooks for shortening/altering output
+<inst_dir>/etc/cnagiosrc   System-wide startup file
+$HOME/.cnagiosrc           User defined startup file
+.SH ENVIRONMENT
+TERM and TERMINFO will be used to control the display, as per
+\fBncurses\fR(3.)
+.SH TRIVIA
+\fBcnagios\fR
+has a very venerable history.  It's a clone of the "Internet Rover" 
+display that was used to monitor NSFNET (the progenitor to the Internet) 
+as early as 1987.
+.SH SEE ALSO
+Nagios
+.SH AUTHORS
+\fBcnagios\fR
+was written by 
+Steve Rader at the University of Wisconsin Physics Department.
+It is not part of the official Nagios distribution.

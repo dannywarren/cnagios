@@ -1,0 +1,84 @@
+
+
+ Welcome to Cnagios!
+
+ Cnagios is a full-screen terminal interface for viewing Nagios HOST
+ and SERVICE objects, and the durations of their current states.  It's 
+ lightning fast because it's written in C using the curses library.
+ And it's super flexible because it uses the perl C library to shorten 
+ and alter host, service and plugin output and filter the displayed 
+ HOSTs or SERVICEs.  
+
+ Download...
+
+   ftp://noc.hep.wisc.edu/pub/src/cnagios/
+
+ To use Cnagios, you'll need Unix, nagios, perl and the curses (or 
+ ncurses) libraries.
+
+ To configure, build and install Cnagios, do...
+
+   ./configure
+   make
+   make install
+
+ If you want to install cnagios and it's man page in /usr/local then
+ do "make install2".
+
+ To run Cnagios, add "/usr/local/nagios/bin" to your PATH (or copy
+ cnagios into /usr/bin) and do...
+
+   cnagios
+
+ If you don't like the full-color display, try...
+
+   cnagios -b
+
+ To launch Cnagios from your window manager, configure it to run
+ color Cnagios in a wide xterm terminal with no scroll bar... my
+ favorite invocation is...
+
+   xterm +sb -geom 100x35 -rv -e \
+    /usr/local/nagios/bin/cnagios -s a -A 4h
+
+ To modify the default/start-up configuration of cnagios, edit
+ the /usr/local/nagios/etc/cnagiosrc and/or ~/.cnagiosrc file(s).
+
+ You can also create permanent text (grep like) filters or negative 
+ (grep -v like) filters by editing the /usr/local/nagios/etc/cnagiosrc 
+ and/or ~/.cnagiosrc file(s).  These filters are perl regular expressions.  
+ For example, the entry...
+
+   f3 text =~ /IMAP|SMTP/
+
+ and hitting the "F3" key will cause cnagios to only display objects
+ matching "IMAP" or "SMTP".
+
+ To modify host, service and plugin output, edit the perl code in...
+
+   /usr/local/nagios/etc/cnagios.pl
+
+ Refer to...
+
+  ftp://noc.hep.wisc.edu/pub/src/cnagios/cnagios.pl
+
+ for lots of examples.
+
+ steve
+ --
+ director of computing 
+ physics department
+ university of wisconsin
+
+ --
+
+ Steve died in his prime, on May 24, 2013.
+
+ http://www.news.wisc.edu/21829
+
+ Currently, Cnagios is not being actively maintained.  We continue to accept
+ simple patches from the community.
+
+ dan bradley
+ physics department
+ university of wisconsin
