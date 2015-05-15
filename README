@@ -11,7 +11,7 @@
 
  Download...
 
-   ftp://noc.hep.wisc.edu/pub/src/cnagios/
+   https://github.com/dannywarren/cnagios/releases
 
  To use Cnagios, you'll need Unix, nagios, perl and the curses (or 
  ncurses) libraries.
