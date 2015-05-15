@@ -64,8 +64,9 @@
 
  for lots of examples.
 
- steve
  --
+
+ steve
  director of computing 
  physics department
  university of wisconsin
@@ -76,9 +77,11 @@
 
  http://www.news.wisc.edu/21829
 
- Currently, Cnagios is not being actively maintained.  We continue to accept
- simple patches from the community.
-
  dan bradley
  physics department
  university of wisconsin
+
+ -- 
+
+ Moved source from noc.hep.wisc.edu to github with the permission of Dan Bradley.
+
