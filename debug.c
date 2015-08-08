@@ -12,6 +12,7 @@ extern int debugging;
 void
 debug(msg,a,b,c,d,e,f,g,h,i,j,k)
 char *msg;
+char *a,*b,*c,*d,*e,*f,*g,*h,*i,*j,*k;
 {
   if ( debugging == 1 ) {
     fprintf(stderr,msg,a,b,c,d,e,f,g,h,i,j,k);
