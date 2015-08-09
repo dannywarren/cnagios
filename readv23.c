@@ -49,7 +49,7 @@ read_v23_status()
   FILE *fp;
   char buffer[MAX_CHARS_PER_LINE];
   struct status_dot_dat_entry ent;
-  int i, stamp, eof;
+  int i, host_stamp, service_stamp, eof;
 
 #ifdef _DEBUG_
 debug("read_v23_status()...");
@@ -224,8 +224,8 @@ debug("  munged plugin_output is \"%s\"",host_list[host_list_size][PLUGIN_OUTPUT
           STATUS_DAT_FILE, line);
         exit(1);
       }
-      sscanf(ent.rhs,"%d",&stamp);
-      if ( (stamp == 0) && (host_list[host_list_size][PLUGIN_OUTPUT][0] == '\0') ) {
+      sscanf(ent.rhs,"%d",&host_stamp);
+      if ( (host_stamp == 0) && (host_list[host_list_size][PLUGIN_OUTPUT][0] == '\0') ) {
 #ifdef _DEBUG_
 debug("  current_state is PENDING, inferred from empty plugin output on Jan 1 1970");
 #endif
@@ -237,14 +237,14 @@ debug("  current_state is PENDING, inferred from empty plugin output on Jan 1 19
         host_list[host_list_size][PLUGIN_OUTPUT] = malloc(25);
         strncpy(host_list[host_list_size][PLUGIN_OUTPUT],"(Host assumed to be up)",25);
         perl_hook(HOST_PLUGIN_HOOK,host_list[host_list_size][PLUGIN_OUTPUT]);
-        stamp = last_update_int;
+        host_stamp = last_update_int;
         host_list[host_list_size][LAST_STATE_CHANGE_INT] = (char *)(last_update_int);
         host_list[host_list_size][LAST_STATE_CHANGE] = malloc(17); 
         strncpy(host_list[host_list_size][LAST_STATE_CHANGE]," not applicable ",16);
       } else { 
-        host_list[host_list_size][LAST_STATE_CHANGE_INT] = (char *)stamp;
+        host_list[host_list_size][LAST_STATE_CHANGE_INT] = (char *)host_stamp;
         host_list[host_list_size][LAST_STATE_CHANGE] = malloc(17); /* "DOW Mon DD HH:MM\0" */
-        strncpy(host_list[host_list_size][LAST_STATE_CHANGE],ctime((time_t *)&stamp),16);
+        strncpy(host_list[host_list_size][LAST_STATE_CHANGE],ctime((time_t *)&host_stamp),16);
       }
       host_list[host_list_size][LAST_STATE_CHANGE][16] = '\0';
 #ifdef _DEBUG_
@@ -255,7 +255,7 @@ debug("  last_state_change is \"%s\" (%d)",
 
       /*--------------------*/
       /* DURATION... */
-      host_list[host_list_size][DURATION] = (char *)calc_duration(stamp);
+      host_list[host_list_size][DURATION] = (char *)calc_duration(host_stamp);
 #ifdef _DEBUG_
 debug("  duration is \"%s\"",host_list[host_list_size][DURATION]);
 #endif
@@ -409,9 +409,11 @@ debug("  current_state is %s",service_list[service_list_size][STATUS]);
           STATUS_DAT_FILE, line);
         exit(1);
       }
-      service_list[service_list_size][LAST_STATE_CHANGE_INT] = (char *)stamp;
+
+      sscanf(ent.rhs,"%d",&service_stamp);
+      service_list[service_list_size][LAST_STATE_CHANGE_INT] = (char *)service_stamp;
       service_list[service_list_size][LAST_STATE_CHANGE] = malloc(17); /* "DOW Mon DD HH:MM\0" */
-      strncpy(service_list[service_list_size][LAST_STATE_CHANGE],ctime((time_t *)&stamp),16);
+      strncpy(service_list[service_list_size][LAST_STATE_CHANGE],ctime((time_t *)&service_stamp),16);
       service_list[service_list_size][LAST_STATE_CHANGE][16] = '\0';
 #ifdef _DEBUG_
 debug("  last_state_change is \"%s\" (%d)",
@@ -421,7 +423,7 @@ debug("  last_state_change is \"%s\" (%d)",
 
       /*--------------------*/
       /* DURATION... */
-      service_list[service_list_size][DURATION] = (char *)calc_duration(stamp);
+      service_list[service_list_size][DURATION] = (char *)calc_duration(service_stamp);
 #ifdef _DEBUG_
 debug("  duration is \"%s\"",service_list[service_list_size][DURATION]);
 #endif
@@ -454,18 +456,18 @@ debug("  raw plugin_output is \"%s\"",ent.rhs);
 debug("  munged plugin_output is \"%s\"",service_list[service_list_size][PLUGIN_OUTPUT]);
 #endif
       /* PENDING is really OKAY w/ "(Service assumed to be ok)" on Jan 1 1970... */
-      if ( (stamp == 0) && (!strcmp("(Service assumed to be ok)",ent.rhs)) ) {
+      if ( (service_stamp == 0) && (!strcmp("(Service assumed to be ok)",ent.rhs)) ) {
 #ifdef _DEBUG_
 debug("  current_state is PENDING, inferred from \"(Service assumed to be ok)\" on Jan 1 1970");
 #endif
         free(service_list[service_list_size][STATUS]);
         service_list[service_list_size][STATUS] = malloc(8);
         strncpy(service_list[service_list_size][STATUS],"PENDING",8);
-        stamp = last_update_int;
-        service_list[service_list_size][LAST_STATE_CHANGE_INT] = (char *)stamp;
+        service_stamp = last_update_int;
+        service_list[service_list_size][LAST_STATE_CHANGE_INT] = (char *)service_stamp;
         service_list[service_list_size][LAST_STATE_CHANGE] = malloc(17); /* "DOW Mon DD HH:MM\0" */
         strncpy(service_list[service_list_size][LAST_STATE_CHANGE]," not applicable ",17);
-        service_list[service_list_size][DURATION] = (char *)calc_duration(stamp);
+        service_list[service_list_size][DURATION] = (char *)calc_duration(service_stamp);
       }
 
       /*--------------------*/
