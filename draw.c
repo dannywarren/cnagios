@@ -365,7 +365,8 @@ draw_screen()
         descr_width = COLS-(pad*2)-LINE_BEGIN_LEN-LINE_END_LEN-2;
         snprintf(buf2,sizeof(buf2),"%%%d.%ds",descr_width,descr_width);
         snprintf(buf,sizeof(buf),buf2,service_list[i][PLUGIN_OUTPUT]);
-        strncpy(buf,service_list[i][SERVICE_NAME],strlen(service_list[i][SERVICE_NAME]));
+        snprintf(buf2,strlen(service_list[i][SERVICE_NAME])+3,"%s  ",service_list[i][SERVICE_NAME]);
+        strncpy(buf,buf2,strlen(buf2));
         mvaddstr(screen_line,LINE_BEGIN_LEN+pad+1,buf);
         snprintf(buf,sizeof(buf),LINE_END_SPEC,service_list[i][LAST_STATE_CHANGE],service_list[i][DURATION]);
         mvaddstr(screen_line,COLS-pad-LINE_END_LEN,buf);
