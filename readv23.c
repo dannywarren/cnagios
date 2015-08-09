@@ -232,7 +232,7 @@ debug("  current_state is PENDING, inferred from empty plugin output on Jan 1 19
         /* PENDING... is really UP with NULL plugin output on Jan 1 1970... */
         free(host_list[host_list_size][STATUS]);
         host_list[host_list_size][STATUS] = malloc(8);
-        strncpy(host_list[host_list_size][STATUS],"PENDING",7);
+        strncpy(host_list[host_list_size][STATUS],"PENDING",8);
         free(host_list[host_list_size][PLUGIN_OUTPUT]);
         host_list[host_list_size][PLUGIN_OUTPUT] = malloc(25);
         strncpy(host_list[host_list_size][PLUGIN_OUTPUT],"(Host assumed to be up)",25);
