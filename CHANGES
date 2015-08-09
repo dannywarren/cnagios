@@ -1,5 +1,16 @@
+ Sun Aug  9th 2015 - Released 0.32
+
+ Sun Aug  9th 2015 - Small visual tweak to prevent description and plugin
+                     output from looking cluttered when the plugin output
+                     is long
+
+ Sun Aug  9th 2015 - Fix duration and last change parsing for services
+
+ Sat Aug  8th 2015 - Fix several causes of segfaults
+
  Fri May 15th 2015 - Source moved from noc.hep.wisc.edu to github:
                      https://github.com/dannywarren/cnagios
+
 
  Mon Dec 23rd 2013 - Released 0.31
 
@@ -8,6 +19,7 @@
 
  Fri May 24th 2013 - Steve Rader died.  We miss him.
                      http://www.news.wisc.edu/21829
+
 
  Thu Mar 28th 2013 - released 0.30
 
