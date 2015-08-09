@@ -60,7 +60,7 @@
 
  Refer to...
 
-  ftp://noc.hep.wisc.edu/pub/src/cnagios/cnagios.pl
+   https://github.com/dannywarren/cnagios/blob/master/cnagios.pl
 
  for lots of examples.
 
@@ -85,3 +85,4 @@
 
  Moved source from noc.hep.wisc.edu to github with the permission of Dan Bradley.
 
+ https://github.com/dannywarren/cnagios
