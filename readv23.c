@@ -232,7 +232,7 @@ debug("  current_state is PENDING, inferred from empty plugin output on Jan 1 19
         /* PENDING... is really UP with NULL plugin output on Jan 1 1970... */
         free(host_list[host_list_size][STATUS]);
         host_list[host_list_size][STATUS] = malloc(8);
-        strncpy(host_list[host_list_size][STATUS],"PENDING",7);
+        strncpy(host_list[host_list_size][STATUS],"PENDING",8);
         free(host_list[host_list_size][PLUGIN_OUTPUT]);
         host_list[host_list_size][PLUGIN_OUTPUT] = malloc(25);
         strncpy(host_list[host_list_size][PLUGIN_OUTPUT],"(Host assumed to be up)",25);
@@ -410,7 +410,7 @@ debug("  current_state is %s",service_list[service_list_size][STATUS]);
         exit(1);
       }
       service_list[service_list_size][LAST_STATE_CHANGE_INT] = (char *)stamp;
-      service_list[service_list_size][LAST_STATE_CHANGE] = malloc(16); /* "DOW Mon DD HH:MM\0" */
+      service_list[service_list_size][LAST_STATE_CHANGE] = malloc(17); /* "DOW Mon DD HH:MM\0" */
       strncpy(service_list[service_list_size][LAST_STATE_CHANGE],ctime((time_t *)&stamp),16);
       service_list[service_list_size][LAST_STATE_CHANGE][16] = '\0';
 #ifdef _DEBUG_

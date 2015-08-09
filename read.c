@@ -79,6 +79,9 @@ debug("read_status()...");
     for ( j = 0; j < STATUS_LIST_ENTRY_SIZE; j++ ) {
       if ( j == LAST_UPDATE ) { continue; }
       if ( j == LAST_STATE_CHANGE_INT ) { continue; }
+#if _DEBUG_
+debug("freeing host: [%d,%d] %s", i, j, host_list[i][j]);
+#endif
       free(host_list[i][j]);
       host_list[i][j] = NULL;
     }
@@ -87,6 +90,9 @@ debug("read_status()...");
     for ( j = 0; j < STATUS_LIST_ENTRY_SIZE; j++ ) {
       if ( j == LAST_UPDATE ) { continue; } 
       if ( j == LAST_STATE_CHANGE_INT ) { continue; }
+#if _DEBUG_
+debug("freeing service: [%d,%d] %s", i, j, service_list[i][j]);
+#endif
       free(service_list[i][j]);
       service_list[i][j] = NULL;
     }
