@@ -8,14 +8,11 @@ dnl
 AC_INIT(Makefile.in)
 AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_SYSTEM
+AC_PROG_CC
 AC_PREREQ(2.12)
 CNAGIOS_VERSION=`cat VERSION`
 AC_SUBST(CNAGIOS_VERSION)
 nagios_default_prefix=/usr/local/nagios
-AC_PATH_PROG(CC, cc, NOT_FOUND)
-if test "$CC" = "NOT_FOUND"; then
-  AC_MSG_ERROR([can not continue: cc not found])
-fi
 
 #----------------------------------------
 # embeded perl...
