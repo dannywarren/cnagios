@@ -73,7 +73,11 @@ debug("status file is %s",STATUS_FILE);
       STATUS_FILE);
     exit(1);
   }
-  strncpy(last_update,ctime((time_t *)&last_update_int),20);
+  {
+    // Copy the value in case int is a different size to time_t
+    time_t last_update_time = last_update_int;
+    strncpy(last_update,ctime(&last_update_time),20);
+  }
   last_update[21] = '\0';
 
   /*--------------------------------------------------------*/
@@ -129,7 +133,11 @@ debug("status file is %s",STATUS_FILE);
               sscanf(str_match,"%d",&stamp);
               host_list[host_list_size][LAST_STATE_CHANGE_INT] = (char *)stamp;
               host_list[host_list_size][LAST_STATE_CHANGE] = malloc(17); /* "DOW Mon DD HH:MM\0" */
-              strncpy(host_list[host_list_size][LAST_STATE_CHANGE],ctime((time_t *)&stamp),16);
+              {
+                // Copy the value in case int is a different size to time_t
+                time_t stamp_time = stamp;
+                strncpy(host_list[host_list_size][LAST_STATE_CHANGE],ctime(&stamp_time),16);
+              }
               host_list[host_list_size][DURATION] = (char *)calc_duration(stamp);
             }
           break;
@@ -199,7 +207,11 @@ debug("status file is %s",STATUS_FILE);
             } else {
               sscanf(str_match,"%d",&stamp);
               service_list[service_list_size][LAST_STATE_CHANGE_INT] = (char *)stamp;
-              strncpy(service_list[service_list_size][LAST_STATE_CHANGE],ctime((time_t *)&stamp),16);
+              {
+                // Copy the value in case int is a different size to time_t
+                time_t stamp_time = stamp;
+                strncpy(service_list[service_list_size][LAST_STATE_CHANGE],ctime(&stamp_time),16);
+              }
               service_list[service_list_size][DURATION] = (char *)calc_duration(stamp);
             }
           break;
