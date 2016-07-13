@@ -106,6 +106,7 @@ debug("freeing service: [%d,%d] %s", i, j, service_list[i][j]);
     break;
     case 2:
     case 3:
+    case 4:
       read_v23_status();
     break;
     default: 

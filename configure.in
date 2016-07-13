@@ -149,7 +149,7 @@ if test "$NAGIOS_STATUS_DATA_VERSION" = "UNKNOWN" ; then
   exit
 fi
 
-if test "$NAGIOS_STATUS_DATA_VERSION" -gt 3 ; then
+if test "$NAGIOS_STATUS_DATA_VERSION" -gt 4 ; then
   echo
   echo "FATAL ERROR: unsupported data version ($NAGIOS_STATUS_DATA_VERSION) in $NAGIOS_STATUS_DATA_VERSION"
   echo "Currently supported versions are 1, 2 and 3."
