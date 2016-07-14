@@ -41,6 +41,17 @@ fi
 AC_SUBST(PERL_LDFLAGS)
 
 #----------------------------------------
+# ncurses
+# Try to use clever pkg-config first, then use normal ac_check_lib
+
+PKG_CHECK_MODULES([CURSES], [ncurses],,[
+  AC_CHECK_LIB([ncurses], [tgetent], [CURSES_LIBS=-lncurses],
+    [AC_CHECK_LIB([curses], [tgetent], [CURSES_LIBS=-lcurses],
+      AC_MSG_ERROR([No ncurses library found]))])
+])
+AC_SUBST([CURSES_LIBS])
+
+#----------------------------------------
 # nagios etc...
 
 if test -d "/etc/nagios"; then
