@@ -3,3 +3,5 @@ autom4te.cache/
 cnagios.h
 config.log
 config.status
+*.o
+cnagios
