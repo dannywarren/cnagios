@@ -9,7 +9,7 @@ OBJS = cnagios.o draw.o read.o debug.o cmds.o help.o perl.o update.o dotfile.o r
 
 CC      = @CC@
 DEFINES = -D_DEBUG_ @DEFINES@
-LIBS    = -lcurses 
+LIBS    = @CURSES_LIBS@
 
 PERL_CFLAGS  = @PERL_CFLAGS@
 PERL_LIBS    = @PERL_LIBS@

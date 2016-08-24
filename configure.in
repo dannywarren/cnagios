@@ -8,14 +8,11 @@ dnl
 AC_INIT(Makefile.in)
 AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_SYSTEM
+AC_PROG_CC
 AC_PREREQ(2.12)
 CNAGIOS_VERSION=`cat VERSION`
 AC_SUBST(CNAGIOS_VERSION)
 nagios_default_prefix=/usr/local/nagios
-AC_PATH_PROG(CC, cc, NOT_FOUND)
-if test "$CC" = "NOT_FOUND"; then
-  AC_MSG_ERROR([can not continue: cc not found])
-fi
 
 #----------------------------------------
 # embeded perl...
@@ -42,6 +39,17 @@ if test "$PERL_LDFLAGS" = "NOT_FOUND"; then
   AC_MSG_ERROR([can not determine perl ld flags])
 fi
 AC_SUBST(PERL_LDFLAGS)
+
+#----------------------------------------
+# ncurses
+# Try to use clever pkg-config first, then use normal ac_check_lib
+
+PKG_CHECK_MODULES([CURSES], [ncurses],,[
+  AC_CHECK_LIB([ncurses], [tgetent], [CURSES_LIBS=-lncurses],
+    [AC_CHECK_LIB([curses], [tgetent], [CURSES_LIBS=-lcurses],
+      AC_MSG_ERROR([No ncurses library found]))])
+])
+AC_SUBST([CURSES_LIBS])
 
 #----------------------------------------
 # nagios etc...
