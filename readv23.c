@@ -89,7 +89,11 @@ debug("status file is %s",STATUS_DAT_FILE);
   }
   if ( !strcmp(ent.lhs,"created") ) {
     last_update_int = atoi(ent.rhs);
-    strncpy(last_update,ctime((time_t *)&last_update_int),19);
+    {
+      // Copy the value in case int is a different size to time_t
+      time_t last_update_time = last_update_int;
+      strncpy(last_update,ctime(&last_update_time),19);
+    }
     last_update[20] = '\0';
   } else {
     endwin();
@@ -244,7 +248,11 @@ debug("  current_state is PENDING, inferred from empty plugin output on Jan 1 19
       } else { 
         host_list[host_list_size][LAST_STATE_CHANGE_INT] = (char *)host_stamp;
         host_list[host_list_size][LAST_STATE_CHANGE] = malloc(17); /* "DOW Mon DD HH:MM\0" */
-        strncpy(host_list[host_list_size][LAST_STATE_CHANGE],ctime((time_t *)&host_stamp),16);
+        {
+          // Copy the value in case int is a different size to time_t
+          time_t host_stamp_time = host_stamp;
+          strncpy(host_list[host_list_size][LAST_STATE_CHANGE],ctime(&host_stamp_time),16);
+        }
       }
       host_list[host_list_size][LAST_STATE_CHANGE][16] = '\0';
 #ifdef _DEBUG_
@@ -413,7 +421,11 @@ debug("  current_state is %s",service_list[service_list_size][STATUS]);
       sscanf(ent.rhs,"%d",&service_stamp);
       service_list[service_list_size][LAST_STATE_CHANGE_INT] = (char *)service_stamp;
       service_list[service_list_size][LAST_STATE_CHANGE] = malloc(17); /* "DOW Mon DD HH:MM\0" */
-      strncpy(service_list[service_list_size][LAST_STATE_CHANGE],ctime((time_t *)&service_stamp),16);
+      {
+        // Copy the value in case int is a different size to time_t
+        time_t service_stamp_time = service_stamp;
+        strncpy(service_list[service_list_size][LAST_STATE_CHANGE],ctime(&service_stamp_time),16);
+      }
       service_list[service_list_size][LAST_STATE_CHANGE][16] = '\0';
 #ifdef _DEBUG_
 debug("  last_state_change is \"%s\" (%d)",
