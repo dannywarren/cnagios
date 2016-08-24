@@ -1,3 +1,7 @@
+ Tue Aug 23rd 2016 - Released 0.33
+                     - Fix segfault in time parsing (pull #5 from Peter Hill)
+                     - Add support for Nagios 4.x status files (pull #4 from Peter Hill)
+
  Sun Aug  9th 2015 - Released 0.32
 
  Sun Aug  9th 2015 - Small visual tweak to prevent description and plugin
