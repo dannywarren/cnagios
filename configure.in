@@ -99,6 +99,7 @@ AC_SUBST(NAGIOS_VAR_DIR)
 
 NAGIOS_STATUS_LOG="$NAGIOS_VAR_DIR/status.log"
 NAGIOS_STATUS_DAT="$NAGIOS_VAR_DIR/status.dat"
+NAGIOS_MAX_SUPPORTED_VERSION=4
 
 if test -f "$NAGIOS_STATUS_LOG" ; then
   NAGIOS_STATUS_DATA_FILE=$NAGIOS_STATUS_LOG
@@ -149,10 +150,10 @@ if test "$NAGIOS_STATUS_DATA_VERSION" = "UNKNOWN" ; then
   exit
 fi
 
-if test "$NAGIOS_STATUS_DATA_VERSION" -gt 4 ; then
+if test "$NAGIOS_STATUS_DATA_VERSION" -gt $NAGIOS_MAX_SUPPORTED_VERSION ; then
   echo
-  echo "FATAL ERROR: unsupported data version ($NAGIOS_STATUS_DATA_VERSION) in $NAGIOS_STATUS_DATA_VERSION"
-  echo "Currently supported versions are 1, 2 and 3."
+  echo "FATAL ERROR: unsupported data version: $NAGIOS_STATUS_DATA_VERSION"
+  echo "You are using a version of nagios that isn't currently supported"
   echo
   exit
 fi
